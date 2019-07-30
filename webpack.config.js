@@ -5,7 +5,8 @@ const {
     CleanWebpackPlugin
 } = require('clean-webpack-plugin');
 module.exports = {
-    mode: 'development',
+    mode: 'production',
+    
     entry: {
         app: './src/index.js',
     },
@@ -25,7 +26,14 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: '模块热替换'
         }),
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.LoaderOptionsPlugin({
+            options:{
+                optmization: {
+                    usedExports: true
+                },
+            }
+        })
     ],
     output: {
         publicPath: '/',
