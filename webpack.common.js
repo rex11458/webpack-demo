@@ -11,13 +11,24 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            title: 'Production'
+            title: 'Caching'
         }),
     ],
     output: {
         publicPath: '/',
-        filename: '[name].bundle.js',
-        chunkFilename: '[name].bundle.js',
+        filename: '[name].[contenthash].js',
         path: path.resolve(__dirname, 'dist')
     },
+    optimization: {
+        runtimeChunk: 'single',
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
+                    chunks: 'all'
+                }
+            }
+        }
+    }
 }
